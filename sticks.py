@@ -6,8 +6,8 @@ from tkinter import ttk
 hands = [1,1,1,1]
 gamemode = 'standard'
 
-def attack(hands, attacker, defender):
-    if hands[attacker] + hands[defender] < 5:
+def attack(hands, attacker, defender): # hand positions [0,1,2,3]    0 1  bot
+    if hands[attacker] + hands[defender] < 5: #                      2 3  player
         hands[defender] = hands[attacker] + hands[defender]
     elif hands[attacker] + hands[defender] == 5:
         hands[defender] = 0
@@ -17,7 +17,7 @@ def attack(hands, attacker, defender):
         hands[defender] = 0
     return hands
 
-def split(hands, donator, reciever, num):
+def split(hands, donator, reciever, num): 
     hands[reciever] += num
     hands[donator] -= num
     return hands
@@ -35,11 +35,11 @@ class GUI:
         self.modeSelect = ttk.Combobox(master, width=30, textvariable=self.n )
         self.modeSelect['values'] = ('standard', 'rollover')
         self.modeLabel = tk.Label(master, text="Select a gamemode", font=('Arial', 20))
-        self.play = tk.Button(master, text="Play", font=('Arial', 15), command=self.game)
-        self.player0 = tk.Label(master, text=1)
-        self.player1 = tk.Label(master, text=1)
-        self.bot0 = tk.Label(master, text=1)
-        self.bot1 = tk.Label(master, text=1)
+        self.play = tk.Button(master, text="Play", font=('Arial', 15), command=self.gameStart)
+        self.player0 = tk.Label(master, text=1, font=('Arial', 45), borderwidth=2, relief='groove')
+        self.player1 = tk.Label(master, text=1, font=('Arial', 45), borderwidth=2, relief='groove')
+        self.bot0 = tk.Label(master, text=1, font=('Arial', 45), borderwidth=2, relief='groove')
+        self.bot1 = tk.Label(master, text=1, font=('Arial', 45), borderwidth=2, relief='groove')
 
         self.exit_button.place(x=50, y=450)
         self.start_button.place(x=540, y=450)
@@ -55,16 +55,16 @@ class GUI:
         self.modeLabel.place(x=202, y=150)
         self.play.place(x=298, y=400)
 
-    def game(self):
+    def gameStart(self):
         self.modeLabel.place_forget()
         self.modeSelect.place_forget()
         self.play.place_forget()
         global gamemode
         gamemode = self.n.get()
-        self.bot0.grid(row=1)
-        self.bot1.grid(row=1, column=1)
-        self.player0.grid(row=2)
-        self.player1.grid(row=2, column=1)
+        self.bot0.place(x=150, y=100)
+        self.bot1.place(x=460, y=100)
+        self.player0.place(x=150, y=350)
+        self.player1.place(x=460, y=350)
 
     def endGame(self):
         print('play again?')
