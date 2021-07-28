@@ -1,11 +1,12 @@
+# Chopsticks hand game
 import tkinter as tk
+from tkinter import ttk
 
 playerLeft = 1
 playerRight = 1
 botLeft = 1
 botRight = 1
 gamemode = 'standard'
-gamemodeList = ['standard', 'rollover']
 
 def attack(attacker, defender):
     if attacker + defender < 5:
@@ -26,15 +27,30 @@ def split(donator, reciever, num):
 class GUI:
     def __init__(self, master):
         self.master = master
-        master.title = ('Sticks')
-        self.label = tk.Label(master, text = "test")
-        self.label.pack
-        self.greet_button = tk.Button(master, text="Greet", command=self.greet)
-        self.greet_button.pack()
-        self.close_button = tk.Button(master, text="Close", command=master.quit)
-        self.close_button.pack()
-    def greet(self):
+        master.title('Chopsticks')
+        self.title = tk.Label(master, text="Chopsticks")
+        self.greet_button = tk.Button(master, text="Start", command=self.start)
+        self.close_button = tk.Button(master, text="Exit", command=master.quit)
+        self.n = tk.StringVar()
+        self.modeSelect = ttk.Combobox(master, width=30, textvariable=self.n )
+        self.modeSelect['values'] = ('standard', 'rollover')
+        self.modeLabel = tk.Label(master, text="Select a gamemode")
+        self.play = tk.Button(master, text="Play", command=self.game)
+        self.close_button.grid(row=1, column=9)
+        self.greet_button.grid(row=1)
+        self.title.grid(columnspan=10, ipadx=0, ipady=0)
+
+    def start(self):
         print("Greetings!")
+        self.greet_button.grid_forget()
+        self.title.grid_forget()
+        self.close_button.grid_forget()
+        self.modeSelect.grid(row=1, column=1)
+        self.modeLabel.grid(row=1)
+        self.play.grid(row=2, columnspan=2)
+
+    def game(self):
+        print("game goes here")
 
 root = tk.Tk()
 my_gui = GUI(root)
